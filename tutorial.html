@@ -1,0 +1,385 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="EMV" >
+        <button onclick="frameClick()">
+        <img id="frame" src="./ipFrames/Cover_1.jpg" width="100%"></img>
+        </button>
+    </div>
+    <canvas id="myCanvas" width="578" height="200"></canvas>
+    
+    <script>
+      var audio = new Audio('./ipFrames/1_3.mp4');
+      function frameClick(context){
+          var frame = document.getElementById("frame");
+          var source = frame.src;
+          
+          var isBack = onBackClick(event,this);
+          
+          if(contains(source, 'Cover_1')){
+              frame.src = "./ipFrames/Cover_2.jpg";
+          }
+          else if(contains(source, 'Cover_2')){
+              if(isBack){
+                audio.pause();                  
+                frame.src = "./ipFrames/Cover_1.jpg";
+              }else{
+                frame.src = "./ipFrames/Step_1_0.jpg";
+                playAudio('./ipFrames/1_0.mp4');
+                setTimeout(show_1_1,3500);
+              }
+          }
+          else if(contains(source, 'Step_1_1')){
+              if(onInstructionsClick(event,this)){ return; }
+              if(isBack){
+                audio.pause();                  
+                frame.src = "./ipFrames/Cover_2.jpg";
+              }else{
+                onCheckboxClick(event,this)
+              }
+          }
+          else if(contains(source, 'Step_1_2')){
+              if(onInstructionsClick(event,this)){ return; }
+              if(isBack){
+                audio.pause();                  
+                frame.src = "./ipFrames/Cover_2.jpg";
+              }else{
+                frame.src = "./ipFrames/Step_1_3.jpg";
+                playAudio('./ipFrames/1_3.mp4');
+              }
+          }
+          else if(contains(source, 'Step_1_3')){
+              if(onInstructionsClick(event,this)){ return; }
+              if(isBack){
+                audio.pause();                  
+                frame.src = "./ipFrames/Cover_2.jpg";
+              }else{
+                frame.src = "./ipFrames/Step_2_0.jpg";
+                playAudio('./ipFrames/2_0.mp4');
+              }
+          }
+          else if(contains(source, 'Step_2_0')){
+              if(onRestartClick(event,this)){ return; }
+              if(isBack){
+                frame.src = "./ipFrames/Step_1_0.jpg";
+                playAudio('./ipFrames/1_0.mp4');
+                setTimeout(show_1_1,3500);
+              }else{
+                frame.src = "./ipFrames/Step_3_0.jpg";
+                playAudio('./ipFrames/3_0.mp4');
+                setTimeout(show_3_1,2000);
+             }
+          }
+          else if(contains(source, 'Step_3_1')){
+              if(onRestartClick(event,this)){ return; }
+              if(isBack){
+                frame.src = "./ipFrames/Step_2_0.jpg";
+                playAudio('./ipFrames/2_0.mp4');
+              }else{
+                frame.src = "./ipFrames/Step_4_0.jpg";
+                playAudio('./ipFrames/4_0.mp4');
+              }
+          }
+          else if(contains(source, 'Step_4_0')){
+              if(onRestartClick(event,this)){ return; }
+              if(isBack){
+                frame.src = "./ipFrames/Step_3_0.jpg";
+                playAudio('./ipFrames/3_0.mp4');
+                setTimeout(show_3_1,2000);
+              }else{
+                frame.src = "./ipFrames/Step_5_0.jpg";
+                playAudio('./ipFrames/5_0.mp4');
+                setTimeout(show_5_1,3500);
+              }
+          }
+          else if(contains(source, 'Step_5_2')){
+              if(onRestartClick(event,this)){ return; }
+              if(isBack){
+                frame.src = "./ipFrames/Step_4_0.jpg";
+                playAudio('./ipFrames/4_0.mp4');
+              }else{
+                frame.src = "./ipFrames/Step_6_0.jpg";
+                playAudio('./ipFrames/6_0.mp4');
+              }
+          }
+          else if(contains(source, 'Step_6_0')){
+              if(onRestartClick(event,this)){ return; }
+              if(isBack){
+                frame.src = "./ipFrames/Step_5_0.jpg";
+                playAudio('./ipFrames/5_0.mp4');
+                setTimeout(show_5_1,3500);
+              }else{
+                frame.src = "./ipFrames/Step_7_0.jpg";
+                playAudio('./ipFrames/7_0.mp4');
+                setTimeout(show_7_1,3500);
+              }
+          }
+          else if(contains(source, 'Step_7_2')){
+              if(onRestartClick(event,this)){ return; }
+              if(isBack){
+                frame.src = "./ipFrames/Step_6_0.jpg";
+                playAudio('./ipFrames/6_0.mp4');
+              }else{
+                frame.src = "./ipFrames/Step_8_0.jpg";
+                playAudio('./ipFrames/8_0.mp4');
+                setTimeout(show_8_1,2000);
+              }
+          }
+          else if(contains(source, 'Step_8_1')){
+              if(onRestartClick(event,this)){ return; }
+              if(isBack){
+                frame.src = "./ipFrames/Step_7_0.jpg";
+                playAudio('./ipFrames/7_0.mp4');
+                setTimeout(show_7_1,3500);
+              }else{
+                frame.src = "./ipFrames/Step_9_0.jpg";
+                playAudio('./ipFrames/9_0.mp4');
+                setTimeout(show_9_1,2000);
+              }
+          }
+          else if(contains(source, 'Step_9_1')){
+              if(onRestartClick(event,this)){ return; }
+              if(isBack){
+                frame.src = "./ipFrames/Step_8_0.jpg";
+                playAudio('./ipFrames/8_0.mp4');
+                setTimeout(show_8_1,2000);
+              }else{
+                frame.src = "./ipFrames/Step_10_0.jpg";
+                playAudio('./ipFrames/10_0.mp4');
+                setTimeout(show_10_1,2000);
+              }
+          }
+          else if(contains(source, 'Step_10_1')){
+              if(onRestartClick(event,this)){ return; }
+              if(isBack){
+                frame.src = "./ipFrames/Step_9_0.jpg";
+                playAudio('./ipFrames/9_0.mp4');
+                setTimeout(show_9_1,2000);
+              }else{
+                frame.src = "./ipFrames/Step_11_0.jpg";
+                playAudio('./ipFrames/11_0.mp4');
+                setTimeout(show_11_1,2500);
+              }
+          }
+          else if(contains(source, 'Step_11_2')){
+              if(onRestartClick(event,this)){ return; }
+              if(isBack){
+                frame.src = "./ipFrames/Step_10_0.jpg";
+                playAudio('./ipFrames/10_0.mp4');
+                setTimeout(show_10_1,2000);
+              }else{
+                frame.src = "./ipFrames/Step_12_0.jpg";
+                playAudio('./ipFrames/12_0.mp4');
+                setTimeout(show_12_1,3500);
+              }
+          }
+          else if(contains(source, 'Step_12_3')){
+              if(onRestartClick(event,this)){ return; }
+              if(isBack){
+                frame.src = "./ipFrames/Step_11_0.jpg";
+                playAudio('./ipFrames/11_0.mp4');
+                setTimeout(show_11_1,2500);
+              }else{
+                frame.src = "./ipFrames/Step_13_0.jpg";
+                playAudio('./ipFrames/13_0.mp4');
+                setTimeout(show_13_1,20000);
+              }
+          }
+      }
+      
+      function playAudio(path){
+        audio.pause();
+        audio = new Audio(path);
+        audio.play();
+      }
+      
+      function openSurvey(){
+        window.open("https://www.surveymonkey.com/r/5SJG5BT", "_blank")
+      }
+      function show_cover_1(){
+        frame.src = "./ipFrames/Cover_1.jpg";
+        audio.pause();
+      }
+      function show_1_1(){
+        frame.src = "./ipFrames/Step_1_1.jpg";
+        playAudio('./ipFrames/1_1.mp4');
+      }
+      function show_1_2(){
+        frame.src = "./ipFrames/Step_1_2.jpg";
+      }
+      function show_3_1(){
+        frame.src = "./ipFrames/Step_3_1.jpg";
+      }
+      function show_5_1(){
+        frame.src = "./ipFrames/Step_5_1.jpg";
+        setTimeout(show_5_2,3500);
+      }
+      function show_5_2(){
+        frame.src = "./ipFrames/Step_5_2.jpg";
+      }
+      function show_7_1(){
+        frame.src = "./ipFrames/Step_7_1.jpg";
+        setTimeout(show_7_2,1000);
+      }
+      function show_7_2(){
+        frame.src = "./ipFrames/Step_7_2.jpg";
+      }
+      function show_8_1(){
+        frame.src = "./ipFrames/Step_8_1.jpg";
+      }
+      function show_9_1(){
+        frame.src = "./ipFrames/Step_9_1.jpg";
+      }
+      function show_10_1(){
+        frame.src = "./ipFrames/Step_10_1.jpg";
+      }
+      function show_11_1(){
+        frame.src = "./ipFrames/Step_11_1.jpg";
+        setTimeout(show_11_2,2000);
+      }
+      function show_11_2(){
+        frame.src = "./ipFrames/Step_11_2.jpg";
+      }
+      function show_12_1(){
+        frame.src = "./ipFrames/Step_12_1.jpg";
+        setTimeout(show_12_2,3500);
+      }
+      function show_12_2(){
+        frame.src = "./ipFrames/Step_12_2.jpg";
+        setTimeout(show_12_3,2000);
+      }
+      function show_12_3(){
+        frame.src = "./ipFrames/Step_12_3.jpg";
+      }
+      function show_13_1(){
+        frame.src = "./ipFrames/Step_13_1.jpg";
+        setTimeout(openSurvey,3000);
+      }
+
+      function onCheckboxClick(event,img) {
+        var posX = event.offsetX?(event.offsetX):event.pageX-img.offsetLeft;
+        var posY = event.offsetY?(event.offsetY):event.pageY-img.offsetTop;
+        
+        var frame = document.getElementById("frame");
+
+        var imageHeight = 1080;
+        var imageWidth = 1920;
+        
+        var leftRatio = 870 / imageWidth;
+        var topRatio = 740 / imageHeight;
+        var rightRatio = 980 / imageWidth;
+        var bottomRatio = 830 / imageHeight;
+
+        var horizontalRatio = posX / frame.width;
+        var verticalRatio = posY / frame.height;
+        
+        if(isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio )){
+            show_1_2();
+        }
+      }
+      
+      function onRestartClick(event,img) {
+        var posX = event.offsetX?(event.offsetX):event.pageX-img.offsetLeft;
+        var posY = event.offsetY?(event.offsetY):event.pageY-img.offsetTop;
+        
+        var frame = document.getElementById("frame");
+
+        var imageHeight = 1080;
+        var imageWidth = 1920;
+        
+        var leftRatio = 1780 / imageWidth;
+        var topRatio = 940 / imageHeight;
+        var rightRatio = 1900 / imageWidth;
+        var bottomRatio = 1060 / imageHeight;
+
+        var horizontalRatio = posX / frame.width;
+        var verticalRatio = posY / frame.height;
+        
+        if(isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio )){
+            show_cover_1();
+            return true;
+        }
+        return false;
+      }
+            
+      function onInstructionsClick(event,img) {
+        var posX = event.offsetX?(event.offsetX):event.pageX-img.offsetLeft;
+        var posY = event.offsetY?(event.offsetY):event.pageY-img.offsetTop;
+        
+        var frame = document.getElementById("frame");
+
+        var imageHeight = 1080;
+        var imageWidth = 1920;
+        
+        var leftRatio = 990 / imageWidth;
+        var topRatio = 1000 / imageHeight;
+        var rightRatio = 1270 / imageWidth;
+        var bottomRatio = 1070 / imageHeight;
+
+        var horizontalRatio = posX / frame.width;
+        var verticalRatio = posY / frame.height;
+        
+        if(isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio )){
+            window.open("./ipFrames/Batch_out_instructions.pdf", "_blank")
+            return true;
+        }
+        return false;
+      }
+      
+      function onBackClick(event,img) {
+        var posX = event.offsetX?(event.offsetX):event.pageX-img.offsetLeft;
+        var posY = event.offsetY?(event.offsetY):event.pageY-img.offsetTop;
+        
+        var frame = document.getElementById("frame");
+
+        var imageHeight = 1080;
+        var imageWidth = 1920;
+        
+        var leftRatio = 810 / imageWidth;
+        var topRatio = 40 / imageHeight;
+        var rightRatio = 1100 / imageWidth;
+        var bottomRatio = 110 / imageHeight;
+
+        var horizontalRatio = posX / frame.width;
+        var verticalRatio = posY / frame.height;
+        
+        if(isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio )){
+            return true;
+        }
+        return false;
+      }
+      
+      function isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio ){
+          if(horizontalRatio < leftRatio){ 
+              return false;
+          }
+          if(horizontalRatio > rightRatio){ 
+              return false;
+          }
+          if(verticalRatio < topRatio){ 
+              return false;
+          }
+          if(verticalRatio > bottomRatio){ 
+              return false;
+          }        
+          return true;
+      }
+
+      function contains(set, subset){
+        if(set.indexOf(subset) > -1) { 
+            return true;
+        }
+        return false;
+      }
+
+    </script>
+  </body>
+</html>   
