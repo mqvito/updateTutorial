@@ -9,12 +9,9 @@
     </style>
   </head>
   <body>
-    <div id="EMV" >
-        <button onclick="frameClick()">
+    <div id="EMV" onclick="frameClick(event)">
         <img id="frame" src="./ipFrames/Cover_1.jpg" width="100%"></img>
-        </button>
     </div>
-    <canvas id="myCanvas" width="578" height="200"></canvas>
     
     <script>
       var audio = new Audio('./ipFrames/1_3.mp4');
