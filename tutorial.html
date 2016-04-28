@@ -14,254 +14,218 @@
     </div>
     
     <script>
-      var audio = new Audio('./ipFrames/1_3.mp3');
-      function frameClick(context){
-          var frame = document.getElementById("frame");
-          var source = frame.src;
+        var index = 0;
+        var frames = [
+            {
+                image: "./ipFrames/Cover_1.jpg",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Cover_2.jpg",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_1_0.jpg",
+                audio: "./ipFrames/1_0.mp3",
+                next: "audio-end"
+            },
+            {
+                image: "./ipFrames/Step_1_1.jpg",
+                audio: "./ipFrames/1_1.mp3",
+                instr: true,
+                next: "checkbox"
+            },
+            {
+                image: "./ipFrames/Step_1_2.jpg",
+                instr: true,
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_1_3.jpg",
+                audio: "./ipFrames/1_3.mp3",
+                instr: true,
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_2_0.jpg",
+                audio: "./ipFrames/2_0.mp3",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_3_0.jpg",
+                audio: "./ipFrames/3_0.mp3",
+                next: "audio-end"
+            },
+            {
+                image: "./ipFrames/Step_3_1.jpg",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_4_0.jpg",
+                audio: "./ipFrames/4_0.mp3",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_5_0.jpg",
+                audio: "./ipFrames/5_0.mp3",
+                next: "audio-end"
+            },
+            {
+                image: "./ipFrames/Step_5_1.jpg",
+                next: "timeout:3500"
+            },
+            {
+                image: "./ipFrames/Step_5_2.jpg",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_6_0.jpg",
+                audio: "./ipFrames/6_0.mp3",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_7_0.jpg",
+                audio: "./ipFrames/7_0.mp3",
+                next: "audio-end"
+            },
+            {
+                image: "./ipFrames/Step_7_1.jpg",
+                next: "timeout:1000"
+            },
+            {
+                image: "./ipFrames/Step_7_2.jpg",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_8_0.jpg",
+                audio: "./ipFrames/8_0.mp3",
+                next: "audio-end"
+            },
+            {
+                image: "./ipFrames/Step_8_1.jpg",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_9_0.jpg",
+                audio: "./ipFrames/9_0.mp3",
+                next: "audio-end"
+            },
+            {
+                image: "./ipFrames/Step_9_1.jpg",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_10_0.jpg",
+                audio: "./ipFrames/10_0.mp3",
+                next: "audio-end"
+            },
+            {
+                image: "./ipFrames/Step_10_1.jpg",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_11_0.jpg",
+                audio: "./ipFrames/11_0.mp3",
+                next: "audio-end"
+            },
+            {
+                image: "./ipFrames/Step_11_1.jpg",
+                next: "timeout:2000"
+            },
+            {
+                image: "./ipFrames/Step_11_2.jpg",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_12_0.jpg",
+                audio: "./ipFrames/12_0.mp3",
+                next: "audio-end"
+            },
+            {
+                image: "./ipFrames/Step_12_1.jpg",
+                next: "timeout:3500"
+            },
+            {
+                image: "./ipFrames/Step_12_2.jpg",
+                next: "timeout:2000"
+            },
+            {
+                image: "./ipFrames/Step_12_3.jpg",
+                next: "click"
+            },
+            {
+                image: "./ipFrames/Step_13_0.jpg",
+                audio: "./ipFrames/13_0.mp3",
+                next: "audio-end"
+            },
+            {
+                image: "./ipFrames/Step_13_1.jpg",
+                next: "survey"
+            }
+        ];
+
+      openInstructions = function() { window.open("./ipFrames/Batch_out_instructions.pdf", "_blank"); };
+      openSurvey = function() { window.open("https://www.surveymonkey.com/r/5SJG5BT", "_blank"); };
+
+        var audio = new Audio();
+
+      function frameClick(event){
+
+          if(audio) console.log("Frame Click: "+audio.paused+" "+audio.ended, event);
+
+
+          if(audio.src && !audio.paused) {
+              audio.pause(); return;
+          } else if(audio.src && !audio.ended && audio.paused) {
+              audio.play(); return;
+          }
           
-          var isBack = onBackClick(event,this);
-          
-          if(contains(source, 'Cover_1')){
-              frame.src = "./ipFrames/Cover_2.jpg";
-          }
-          else if(contains(source, 'Cover_2')){
-              if(isBack){
-                audio.pause();                  
-                frame.src = "./ipFrames/Cover_1.jpg";
-              }else{
-                frame.src = "./ipFrames/Step_1_0.jpg";
-                playAudio('./ipFrames/1_0.mp3');
-                setTimeout(show_1_1,3500);
-              }
-          }
-          else if(contains(source, 'Step_1_1')){
-              if(onInstructionsClick(event,this)){ return; }
-              if(isBack){
-                audio.pause();                  
-                frame.src = "./ipFrames/Cover_2.jpg";
-              }else{
-                onCheckboxClick(event,this)
-              }
-          }
-          else if(contains(source, 'Step_1_2')){
-              if(onInstructionsClick(event,this)){ return; }
-              if(isBack){
-                audio.pause();                  
-                frame.src = "./ipFrames/Cover_2.jpg";
-              }else{
-                frame.src = "./ipFrames/Step_1_3.jpg";
-                playAudio('./ipFrames/1_3.mp3');
-              }
-          }
-          else if(contains(source, 'Step_1_3')){
-              if(onInstructionsClick(event,this)){ return; }
-              if(isBack){
-                audio.pause();                  
-                frame.src = "./ipFrames/Cover_2.jpg";
-              }else{
-                frame.src = "./ipFrames/Step_2_0.jpg";
-                playAudio('./ipFrames/2_0.mp3');
-              }
-          }
-          else if(contains(source, 'Step_2_0')){
-              if(onRestartClick(event,this)){ return; }
-              if(isBack){
-                frame.src = "./ipFrames/Step_1_0.jpg";
-                playAudio('./ipFrames/1_0.mp3');
-                setTimeout(show_1_1,3500);
-              }else{
-                frame.src = "./ipFrames/Step_3_0.jpg";
-                playAudio('./ipFrames/3_0.mp3');
-                setTimeout(show_3_1,2000);
-             }
-          }
-          else if(contains(source, 'Step_3_1')){
-              if(onRestartClick(event,this)){ return; }
-              if(isBack){
-                frame.src = "./ipFrames/Step_2_0.jpg";
-                playAudio('./ipFrames/2_0.mp3');
-              }else{
-                frame.src = "./ipFrames/Step_4_0.jpg";
-                playAudio('./ipFrames/4_0.mp3');
-              }
-          }
-          else if(contains(source, 'Step_4_0')){
-              if(onRestartClick(event,this)){ return; }
-              if(isBack){
-                frame.src = "./ipFrames/Step_3_0.jpg";
-                playAudio('./ipFrames/3_0.mp3');
-                setTimeout(show_3_1,2000);
-              }else{
-                frame.src = "./ipFrames/Step_5_0.jpg";
-                playAudio('./ipFrames/5_0.mp3');
-                setTimeout(show_5_1,3500);
-              }
-          }
-          else if(contains(source, 'Step_5_2')){
-              if(onRestartClick(event,this)){ return; }
-              if(isBack){
-                frame.src = "./ipFrames/Step_4_0.jpg";
-                playAudio('./ipFrames/4_0.mp3');
-              }else{
-                frame.src = "./ipFrames/Step_6_0.jpg";
-                playAudio('./ipFrames/6_0.mp3');
-              }
-          }
-          else if(contains(source, 'Step_6_0')){
-              if(onRestartClick(event,this)){ return; }
-              if(isBack){
-                frame.src = "./ipFrames/Step_5_0.jpg";
-                playAudio('./ipFrames/5_0.mp3');
-                setTimeout(show_5_1,3500);
-              }else{
-                frame.src = "./ipFrames/Step_7_0.jpg";
-                playAudio('./ipFrames/7_0.mp3');
-                setTimeout(show_7_1,3500);
-              }
-          }
-          else if(contains(source, 'Step_7_2')){
-              if(onRestartClick(event,this)){ return; }
-              if(isBack){
-                frame.src = "./ipFrames/Step_6_0.jpg";
-                playAudio('./ipFrames/6_0.mp3');
-              }else{
-                frame.src = "./ipFrames/Step_8_0.jpg";
-                playAudio('./ipFrames/8_0.mp3');
-                setTimeout(show_8_1,2000);
-              }
-          }
-          else if(contains(source, 'Step_8_1')){
-              if(onRestartClick(event,this)){ return; }
-              if(isBack){
-                frame.src = "./ipFrames/Step_7_0.jpg";
-                playAudio('./ipFrames/7_0.mp3');
-                setTimeout(show_7_1,3500);
-              }else{
-                frame.src = "./ipFrames/Step_9_0.jpg";
-                playAudio('./ipFrames/9_0.mp3');
-                setTimeout(show_9_1,2000);
-              }
-          }
-          else if(contains(source, 'Step_9_1')){
-              if(onRestartClick(event,this)){ return; }
-              if(isBack){
-                frame.src = "./ipFrames/Step_8_0.jpg";
-                playAudio('./ipFrames/8_0.mp3');
-                setTimeout(show_8_1,2000);
-              }else{
-                frame.src = "./ipFrames/Step_10_0.jpg";
-                playAudio('./ipFrames/10_0.mp3');
-                setTimeout(show_10_1,2000);
-              }
-          }
-          else if(contains(source, 'Step_10_1')){
-              if(onRestartClick(event,this)){ return; }
-              if(isBack){
-                frame.src = "./ipFrames/Step_9_0.jpg";
-                playAudio('./ipFrames/9_0.mp3');
-                setTimeout(show_9_1,2000);
-              }else{
-                frame.src = "./ipFrames/Step_11_0.jpg";
-                playAudio('./ipFrames/11_0.mp3');
-                setTimeout(show_11_1,2500);
-              }
-          }
-          else if(contains(source, 'Step_11_2')){
-              if(onRestartClick(event,this)){ return; }
-              if(isBack){
-                frame.src = "./ipFrames/Step_10_0.jpg";
-                playAudio('./ipFrames/10_0.mp3');
-                setTimeout(show_10_1,2000);
-              }else{
-                frame.src = "./ipFrames/Step_12_0.jpg";
-                playAudio('./ipFrames/12_0.mp3');
-                setTimeout(show_12_1,3500);
-              }
-          }
-          else if(contains(source, 'Step_12_3')){
-              if(onRestartClick(event,this)){ return; }
-              if(isBack){
-                frame.src = "./ipFrames/Step_11_0.jpg";
-                playAudio('./ipFrames/11_0.mp3');
-                setTimeout(show_11_1,2500);
-              }else{
-                frame.src = "./ipFrames/Step_13_0.jpg";
-                playAudio('./ipFrames/13_0.mp3');
-                setTimeout(show_13_1,20000);
-              }
-          }
-      }
-      
-      function playAudio(path){
-        audio.pause();
-        audio = new Audio(path);
-        audio.play();
-      }
-      
-      function openSurvey(){
-        window.open("https://www.surveymonkey.com/r/5SJG5BT", "_blank")
-      }
-      function show_cover_1(){
-        frame.src = "./ipFrames/Cover_1.jpg";
-        audio.pause();
-      }
-      function show_1_1(){
-        frame.src = "./ipFrames/Step_1_1.jpg";
-        playAudio('./ipFrames/1_1.mp3');
-      }
-      function show_1_2(){
-        frame.src = "./ipFrames/Step_1_2.jpg";
-      }
-      function show_3_1(){
-        frame.src = "./ipFrames/Step_3_1.jpg";
-      }
-      function show_5_1(){
-        frame.src = "./ipFrames/Step_5_1.jpg";
-        setTimeout(show_5_2,3500);
-      }
-      function show_5_2(){
-        frame.src = "./ipFrames/Step_5_2.jpg";
-      }
-      function show_7_1(){
-        frame.src = "./ipFrames/Step_7_1.jpg";
-        setTimeout(show_7_2,1000);
-      }
-      function show_7_2(){
-        frame.src = "./ipFrames/Step_7_2.jpg";
-      }
-      function show_8_1(){
-        frame.src = "./ipFrames/Step_8_1.jpg";
-      }
-      function show_9_1(){
-        frame.src = "./ipFrames/Step_9_1.jpg";
-      }
-      function show_10_1(){
-        frame.src = "./ipFrames/Step_10_1.jpg";
-      }
-      function show_11_1(){
-        frame.src = "./ipFrames/Step_11_1.jpg";
-        setTimeout(show_11_2,2000);
-      }
-      function show_11_2(){
-        frame.src = "./ipFrames/Step_11_2.jpg";
-      }
-      function show_12_1(){
-        frame.src = "./ipFrames/Step_12_1.jpg";
-        setTimeout(show_12_2,3500);
-      }
-      function show_12_2(){
-        frame.src = "./ipFrames/Step_12_2.jpg";
-        setTimeout(show_12_3,2000);
-      }
-      function show_12_3(){
-        frame.src = "./ipFrames/Step_12_3.jpg";
-      }
-      function show_13_1(){
-        frame.src = "./ipFrames/Step_13_1.jpg";
-        setTimeout(openSurvey,3000);
+          var backClick = onBackClick(event,this);
+          var instrClick = isInstructionsClick(event,this);
+          var checkboxClick = isCheckboxClick(event,this);
+          var restartClick = isRestartClick(event,this);
+          //TODO: Implement me... var forwardClick = isForwardClick(event,this);
+
+          console.log("Frame: "+index+" "+backClick+" "+instrClick+" "+checkboxClick+" "+restartClick);
+
+          if(backClick && index > 0) { index--; setFrame(true); return; }
+
+          var f = frames[index];
+
+          if(f.instr && instrClick) { openInstructions(); return; }
+          if(index > 6 && restartClick) { index = 0; setFrame(); return; }
+          if(f.next === "checkbox" && checkboxClick) { index++; setFrame(); }
+
+          if(f.next === "click" || f.next === "audio-end" || f.next.indexOf("timeout") === 0) { index++; setFrame(); }
+
       }
 
-      function onCheckboxClick(event,img) {
+      function setFrame(wasBack) {
+          var frame = document.getElementById("frame");
+          var f = frames[index];
+          frame.src = f.image;
+          if(f.audio) {
+              audio.src = f.audio;
+              audio.load();
+              audio.play();
+          }
+          if(wasBack) return;
+          if(f.next === "audio-end") {
+              console.log("Audio Ended: "+index);
+              audio.onended = function() {
+                  audio.onended = null;
+                  console.log("In Audio Ended: "+index);
+                  index++;
+                  setFrame();
+              }
+          }
+          if(f.next.indexOf('timeout') === 0) {
+              console.log("timeout advance "+ f.next);
+              window.setTimeout(function(){index++;setFrame();}, f.next.split(":")[1] - 0);
+          }
+      }
+
+      function isCheckboxClick(event,img) {
         var posX = event.offsetX?(event.offsetX):event.pageX-img.offsetLeft;
         var posY = event.offsetY?(event.offsetY):event.pageY-img.offsetTop;
         
@@ -278,12 +242,10 @@
         var horizontalRatio = posX / frame.width;
         var verticalRatio = posY / frame.height;
         
-        if(isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio )){
-            show_1_2();
-        }
+        return isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio );
       }
       
-      function onRestartClick(event,img) {
+      function isRestartClick(event,img) {
         var posX = event.offsetX?(event.offsetX):event.pageX-img.offsetLeft;
         var posY = event.offsetY?(event.offsetY):event.pageY-img.offsetTop;
         
@@ -300,14 +262,10 @@
         var horizontalRatio = posX / frame.width;
         var verticalRatio = posY / frame.height;
         
-        if(isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio )){
-            show_cover_1();
-            return true;
-        }
-        return false;
+        return isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio );
       }
             
-      function onInstructionsClick(event,img) {
+      function isInstructionsClick(event,img) {
         var posX = event.offsetX?(event.offsetX):event.pageX-img.offsetLeft;
         var posY = event.offsetY?(event.offsetY):event.pageY-img.offsetTop;
         
@@ -323,12 +281,11 @@
 
         var horizontalRatio = posX / frame.width;
         var verticalRatio = posY / frame.height;
+
+          console.log("l:"+leftRatio+" t:"+topRatio+" r:"+rightRatio+" b:"+bottomRatio);
+          console.log("v:"+verticalRatio+" h:"+horizontalRatio);
         
-        if(isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio )){
-            window.open("./ipFrames/Batch_out_instructions.pdf", "_blank")
-            return true;
-        }
-        return false;
+        return isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio );
       }
       
       function onBackClick(event,img) {
@@ -348,10 +305,7 @@
         var horizontalRatio = posX / frame.width;
         var verticalRatio = posY / frame.height;
         
-        if(isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio )){
-            return true;
-        }
-        return false;
+        return isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio );
       }
       
       function isInRegion(horizontalRatio, verticalRatio, topRatio, bottomRatio, leftRatio, rightRatio ){
